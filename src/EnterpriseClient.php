@@ -10,22 +10,25 @@ class EnterpriseClient extends BaseClient
     {
         $this->namespace = self::ENTERPRISE_NAMESPACE;
     }
+
     /**
      * Adds one or more new individual objects to your organization's data.
-     * @param array $sObjects    Array of one or more sObjects (up to 200) to create.
+     *
+     * @param array                $sObjects          Array of one or more sObjects (up to 200) to create.
      * @param AssignmentRuleHeader $assignment_header is optional.  Defaults to NULL
-     * @param MruHeader $mru_header is optional.  Defaults to NULL
+     * @param MruHeader            $mru_header        is optional.  Defaults to NULL
+     *
      * @return SaveResult
      */
     public function create($sObjects, $type)
     {
-        $arg = array();
+        $arg = [];
         foreach ($sObjects as $sObject) {
             // FIX for fieldsToNull issue - allow array in fieldsToNull (STEP #1)
             $xmlStr = '';
             if (isset($sObject->fieldsToNull) && is_array($sObject->fieldsToNull)) {
                 foreach ($sObject->fieldsToNull as $fieldToNull) {
-                    $xmlStr .= '<fieldsToNull>' . $fieldToNull . '</fieldsToNull>';
+                    $xmlStr .= '<fieldsToNull>'.$fieldToNull.'</fieldsToNull>';
                 }
             }
             // ------
@@ -37,25 +40,29 @@ class EnterpriseClient extends BaseClient
             // ------
             $arg[] = $soapObject;
         }
-        return parent::_create(new SoapParam($arg, "sObjects"));
+
+        return parent::_create(new SoapParam($arg, 'sObjects'));
     }
+
     /**
      * Updates one or more new individual objects to your organization's data.
+     *
      * @param array sObjects    Array of sObjects
      * @param AssignmentRuleHeader $assignment_header is optional.  Defaults to NULL
-     * @param MruHeader $mru_header is optional.  Defaults to NULL
+     * @param MruHeader            $mru_header        is optional.  Defaults to NULL
+     *
      * @return UpdateResult
      */
-    public function update($sObjects, $type, $assignment_header = NULL, $mru_header = NULL)
+    public function update($sObjects, $type, $assignment_header = null, $mru_header = null)
     {
-        $arg           = new stdClass;
-        $arg->sObjects = array();
+        $arg = new stdClass();
+        $arg->sObjects = [];
         foreach ($sObjects as $sObject) {
             // FIX for fieldsToNull issue - allow array in fieldsToNull (STEP #1)
             $xmlStr = '';
             if (isset($sObject->fieldsToNull) && is_array($sObject->fieldsToNull)) {
                 foreach ($sObject->fieldsToNull as $fieldToNull) {
-                    $xmlStr .= '<fieldsToNull>' . $fieldToNull . '</fieldsToNull>';
+                    $xmlStr .= '<fieldsToNull>'.$fieldToNull.'</fieldsToNull>';
                 }
             }
             // ------
@@ -67,30 +74,33 @@ class EnterpriseClient extends BaseClient
             // ------
             $arg->sObjects[] = $soapObject;
         }
+
         return parent::_update($arg);
     }
+
     /**
      * Creates new objects and updates existing objects; uses a custom field to
      * determine the presence of existing objects. In most cases, we recommend
      * that you use upsert instead of create because upsert is idempotent.
      * Available in the API version 7.0 and later.
      *
-     * @param string $ext_Id External Id
+     * @param string $ext_Id   External Id
      * @param array  $sObjects Array of sObjects
-     * @param string $type The type of objects being upserted.
+     * @param string $type     The type of objects being upserted.
+     *
      * @return UpsertResult
      */
     public function upsert($ext_Id, $sObjects, $type = 'Contact')
     {
-        $arg                      = new stdClass;
-        $arg->sObjects            = array();
+        $arg = new stdClass();
+        $arg->sObjects = [];
         $arg->externalIDFieldName = new SoapVar($ext_Id, XSD_STRING, 'string', 'http://www.w3.org/2001/XMLSchema');
         foreach ($sObjects as $sObject) {
             // FIX for fieldsToNull issue - allow array in fieldsToNull (STEP #1)
             $xmlStr = '';
             if (isset($sObject->fieldsToNull) && is_array($sObject->fieldsToNull)) {
                 foreach ($sObject->fieldsToNull as $fieldToNull) {
-                    $xmlStr .= '<fieldsToNull>' . $fieldToNull . '</fieldsToNull>';
+                    $xmlStr .= '<fieldsToNull>'.$fieldToNull.'</fieldsToNull>';
                 }
             }
             // ------
@@ -102,20 +112,24 @@ class EnterpriseClient extends BaseClient
             // ------
             $arg->sObjects[] = $soapObject;
         }
+
         return parent::_upsert($arg);
     }
+
     /**
-     * Merge records
+     * Merge records.
      *
      * @param stdclass $mergeRequest
-     * @param String $type
+     * @param string   $type
+     *
      * @return unknown
      */
     public function merge($mergeRequest, $type)
     {
         $mergeRequest->masterRecord = new SoapVar($mergeRequest->masterRecord, SOAP_ENC_OBJECT, $type, $this->namespace);
-        $arg                        = new stdClass;
-        $arg->request               = new SoapVar($mergeRequest, SOAP_ENC_OBJECT, 'MergeRequest', $this->namespace);
+        $arg = new stdClass();
+        $arg->request = new SoapVar($mergeRequest, SOAP_ENC_OBJECT, 'MergeRequest', $this->namespace);
+
         return parent::_merge($arg);
     }
 }
