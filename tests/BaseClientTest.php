@@ -1,15 +1,15 @@
 <?php
 /**
- * Aws3
+ * Sforce.
  *
  * @link      https://github.com/adrorocker/sforce
  * @copyright Copyright (c) 2017 Adro Rocker
  * @author    Adro Rocker <alejandro.morelos@jarwebdev.com>
  */
-namespace Adrosoftware\Aws3\Tests;
+namespace Sforce\Tests;
 
-use Sforce\BaseClient;
 use PHPUnit\Framework\TestCase;
+use Sforce\BaseClient;
 
 class BaseClientTest extends TestCase
 {
