@@ -11,8 +11,8 @@ class AssignmentRuleHeader
     /**
      * Constructor.  Only one param can be set.
      *
-     * @param int $id  AssignmentRuleId
-     * @param boolean $flag  UseDefaultRule flag
+     * @param int  $id   AssignmentRuleId
+     * @param bool $flag UseDefaultRule flag
      */
     public function __construct($id = null, $flag = null)
     {

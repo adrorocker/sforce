@@ -9,13 +9,14 @@ class PackageVersion
     public $minorNumber;
 
     public $namespace;
-    
+
     /**
      * Class constructor.
-     * 
-     * @param int $majorNumber
-     * @param int $minorNumber
+     *
+     * @param int    $majorNumber
+     * @param int    $minorNumber
      * @param string $namespace
+     *
      * @return void
      */
     public function __construct($majorNumber, $minorNumber, $namespace)
