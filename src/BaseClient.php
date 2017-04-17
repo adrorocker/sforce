@@ -20,6 +20,7 @@ use Sforce\Process\ProcessWorkitemRequest;
 use Sforce\Proxy\Settings;
 use SoapClient;
 use SoapHeader;
+use SoapVar;
 
 class BaseClient
 {
