@@ -2,7 +2,7 @@
 
 namespace Sforce;
 
-use SoapClient as ParentSoapClient
+use SoapClient as ParentSoapClient;
 
 class SoapClient extends ParentSoapClient
 {
