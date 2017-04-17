@@ -6,7 +6,7 @@ use SoapClient as ParentSoapClient;
 
 class SoapClient extends ParentSoapClient
 {
-    function __doRequest($request, $location, $action, $version, $one_way = 0)
+    public function __doRequest($request, $location, $action, $version, $one_way = 0)
     {
         $response = parent::__doRequest($request, $location, $action, $version, $one_way);
         // Quick check to only parse the XML here if we think we need to
@@ -23,6 +23,7 @@ class SoapClient extends ParentSoapClient
         foreach ($nodeList as $node) {
             $node->removeAttributeNS('http://www.w3.org/2001/XMLSchema-instance', 'type');
         }
-        return $dom->saveXML();      
+
+        return $dom->saveXML();
     }
 }
