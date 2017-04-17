@@ -2,6 +2,9 @@
 
 namespace Sforce;
 
+use SoapParam;
+use SoapVar;
+
 class EnterpriseClient extends BaseClient
 {
     const ENTERPRISE_NAMESPACE = 'urn:enterprise.soap.sforce.com';
@@ -55,7 +58,7 @@ class EnterpriseClient extends BaseClient
      */
     public function update($sObjects, $type, $assignment_header = null, $mru_header = null)
     {
-        $arg = new stdClass();
+        $arg = new \stdClass();
         $arg->sObjects = [];
         foreach ($sObjects as $sObject) {
             // FIX for fieldsToNull issue - allow array in fieldsToNull (STEP #1)
@@ -92,7 +95,7 @@ class EnterpriseClient extends BaseClient
      */
     public function upsert($ext_Id, $sObjects, $type = 'Contact')
     {
-        $arg = new stdClass();
+        $arg = new \stdClass();
         $arg->sObjects = [];
         $arg->externalIDFieldName = new SoapVar($ext_Id, XSD_STRING, 'string', 'http://www.w3.org/2001/XMLSchema');
         foreach ($sObjects as $sObject) {
@@ -127,7 +130,7 @@ class EnterpriseClient extends BaseClient
     public function merge($mergeRequest, $type)
     {
         $mergeRequest->masterRecord = new SoapVar($mergeRequest->masterRecord, SOAP_ENC_OBJECT, $type, $this->namespace);
-        $arg = new stdClass();
+        $arg = new \stdClass();
         $arg->request = new SoapVar($mergeRequest, SOAP_ENC_OBJECT, 'MergeRequest', $this->namespace);
 
         return parent::_merge($arg);
