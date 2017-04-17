@@ -9,4 +9,5 @@ if ((!$loader = includeIfExists(__DIR__.'/../vendor/autoload.php')) && (!$loader
         'See https://getcomposer.org/download/ for instructions on installing Composer'.PHP_EOL;
     exit(1);
 }
+
 return $loader;
